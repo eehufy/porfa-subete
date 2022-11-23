@@ -1,15 +1,23 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+
 import { LoadingController, ToastController } from '@ionic/angular';
+
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import jsQR from 'jsqr';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  qrCodeString='Suck my dick';
+
+  qrCodeString='https://www.youtube.com/watch?v=dwDns8x3Jb4';
+
+
+
   code: any;
   scanActive = false;
   scanResult = null;
@@ -20,13 +28,19 @@ export class HomePage implements OnInit {
   canvasContext: any;
   loading: HTMLIonLoadingElement;
 
-  constructor(private alertController: AlertController,private barcodeScanner: BarcodeScanner,
-     private toastCtrl: ToastController, private loadingCtrl: LoadingController ) { }
-  ngAfterViewInit(){  
-    this.videoElement = this.video.nativeElement;
-    this.canvasElement = this.canvas.nativeElement;
-    this.canvasContext = this.canvasElement.getContext('2d');
-}
+
+  constructor(private alertController: AlertController, private barcodeScanner: BarcodeScanner,
+     private toastCtrl: ToastController, private loadingCtrl: LoadingController) {}
+     ngAfterViewInit(){  
+      this.videoElement = this.video.nativeElement;
+      this.canvasElement = this.canvas.nativeElement;
+      this.canvasContext = this.canvasElement.getContext('2d');
+  }
+
+
+
+
+
   async asistencia() {
     const alert = await this.alertController.create({
       header: 'Atencion',
@@ -37,6 +51,9 @@ export class HomePage implements OnInit {
 
     await alert.present();
   }
+
+
+
 
   ngOnInit() {
   }
@@ -119,3 +136,5 @@ export class HomePage implements OnInit {
     toast.present();
   }
 }
+
+

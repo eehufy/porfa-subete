@@ -21,6 +21,8 @@ export class ProfilePage implements OnInit {
     this.profileId = this.activatedRoute.snapshot.paramMap.get('id')
     this.http.get('https://rickandmortyapi.com/api/character/' + this.profileId)
       .subscribe(res=> this.character = res);
+
+
       
 
   }

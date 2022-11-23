@@ -5,7 +5,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -16,14 +16,8 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
-  {
-    path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
-  },
-  {
-    path: 'cambiocontra',
-    loadChildren: () => import('./cambiocontra/cambiocontra.module').then( m => m.CambiocontraPageModule)
-  },
+
+
   {
     path: 'veralumnos',
     loadChildren: () => import('./veralumnos/veralumnos.module').then( m => m.VeralumnosPageModule)
@@ -31,7 +25,8 @@ const routes: Routes = [
   {
     path: 'profile/:id',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  }
+  },
+
   
 ];
 

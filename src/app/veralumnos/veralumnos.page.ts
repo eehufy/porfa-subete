@@ -9,6 +9,7 @@ import { Subscriber } from 'rxjs';
 })
 export class VeralumnosPage implements OnInit {
 
+  token = localStorage.getItem("token");   
   characters = []
 
   constructor(
@@ -16,6 +17,7 @@ export class VeralumnosPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("token: ", this.token)
     this.http.get<any>('https://rickandmortyapi.com/api/character')
     .subscribe(res => {
       console.log(res);

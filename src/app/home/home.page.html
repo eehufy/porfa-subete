@@ -24,6 +24,7 @@
 
 
 
+
   <ion-button id="open-modal" expand="block">Ver Clases</ion-button>
 
   <ion-modal #modal trigger="open-modal">
@@ -80,7 +81,7 @@
     </ng-template>
   </ion-modal>
   <ion-button [routerLink]="['/veralumnos']" id="open-modal" expand="block">Ver Alumnos</ion-button>
-
+  
 <ion-content>
   <ion-card>
     <ion-card-header>
@@ -99,7 +100,7 @@
 
 
 
-
+<!--Seccion del lector QR-->
 <ion-button expand="full" (click)="reset()" color="warning" *ngIf="scanResult">
   <ion-icon slot="start" name="refresh"></ion-icon>
   Resetear
@@ -118,4 +119,5 @@
     {{ scanResult }}
   </ion-card-content>
  </ion-card>
+
 
