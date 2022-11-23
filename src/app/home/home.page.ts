@@ -9,7 +9,7 @@ import jsQR from 'jsqr';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+  qrCodeString='Suck my dick';
   code: any;
   scanActive = false;
   scanResult = null;

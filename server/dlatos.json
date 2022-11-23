@@ -1,0 +1,34 @@
+{
+    "alumnos":
+    [
+        {"id": 1, "nombre": "Christophe", "apellido": "Le Friant"},
+        {"id": 2, "nombre": "Stéphane ", "apellido": "Quême"},
+        {"id": 3, "nombre": "Benjamin ", "apellido": "Diamond"},
+        {"id": 4, "nombre": "Anthony ", "apellido": "Wayne"},
+        {"id": 5, "nombre": "Pierre ", "apellido": "David "},
+        {"id": 6, "nombre": "Gaspard ", "apellido": "Augê"},
+        {"id": 7, "nombre": "Xavier ", "apellido": "de Rosnay"},
+        {"id": 8, "nombre": "Yann ", "apellido": "Destal"},
+        {"id": 9, "nombre": "Romain", "apellido": "Tranchart"},
+        {"id": 10, "nombre": "Mehdi ", "apellido": "Fravéris-Essadi"}
+        
+
+    ],
+    "profesor":    
+    [
+        {"id": 1, "nombre": "Matias ", "apellido": "Río", "idAsignatura": "1"},
+        {"id": 2, "nombre": "Amalia ", "apellido": "Fortune ", "idAsignatura": "2"},
+        {"id": 3, "nombre": "Dewalt", "apellido": "Jhonson", "idAsignatura": "3"},
+        {"id": 4, "nombre": "Thomas", "apellido": "Bangalter ", "idAsignatura": "4"},
+        {"id": 5, "nombre": "Guy-Manuel", "apellido": "Cristo", "idAsignatura": "5"}
+    ],
+    "asignatura":
+    [
+        {"id": 1, "nombreAsignatura": "programacion", "idProfesor": 1 }, 
+        {"id": 2, "nombreAsignatura": "base de datos", "idProfesor": 2 }, 
+        {"id": 3, "nombreAsignatura": "conexiones", "idProfesor": 3 }, 
+        {"id": 4, "nombreAsignatura": "ingenieria", "idProfesor": 4 }, 
+        {"id": 5, "nombreAsignatura": "arquitectura", "idProfesor": 5 }
+ 
+    ]
+}

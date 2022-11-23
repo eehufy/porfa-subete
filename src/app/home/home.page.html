@@ -24,7 +24,6 @@
 
 
 
-<ion-content class="ion-padding">
   <ion-button id="open-modal" expand="block">Ver Clases</ion-button>
 
   <ion-modal #modal trigger="open-modal">
@@ -82,8 +81,25 @@
   </ion-modal>
   <ion-button [routerLink]="['/veralumnos']" id="open-modal" expand="block">Ver Alumnos</ion-button>
 
-</ion-content>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Generar QR</ion-card-title>
+       <ion-card-content>
+        <qrcode [qrdata]="qrCodeString" [width]="160" [errorCorrectionLevel]="M" ></qrcode>
+       </ion-card-content>
+    </ion-card-header>
   
+    <ion-button fill="clear">Action 1</ion-button>
+  
+
+
+  </ion-card>
+</ion-content>
+
+
+
+
 <ion-button expand="full" (click)="reset()" color="warning" *ngIf="scanResult">
   <ion-icon slot="start" name="refresh"></ion-icon>
   Resetear
