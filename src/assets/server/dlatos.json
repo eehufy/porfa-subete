@@ -1,0 +1,34 @@
+{
+    "alumnos":
+    [
+        {"idA": 1, "nombreA": "Christophe", "apellidoA": "Le Friant" ,   "image":"/assets/img/Le-Friant.jpg"},
+        {"idA": 2, "nombreA": "Stéphane ", "apellidoA": "Quême",         "image":"/assets/img/Stéphane-Quême.jpg"},
+        {"idA": 3, "nombreA": "Benjamin ", "apellidoA": "Diamond",       "image":"/assets/img/Benjamin-Diamond.jpg"},
+        {"idA": 4, "nombreA": "Anthony ", "apellidoA": "Wayne",          "image":"/assets/img/Anthony.png"},
+        {"idA": 5, "nombreA": "Pierre ", "apellidoA": "David " ,         "image":"/assets/img/Pierred-David.png"},
+        {"idA": 6, "nombreA": "Gaspard ", "apellidoA": "Augê",           "image":"/assets/img/Gaspard-Augê.jpg"},
+        {"idA": 7, "nombreA": "Xavier ", "apellidoA": "de Rosnay",       "image":"/assets/img/Xavier_de_Rosnay.jpg"},
+        {"idA": 8, "nombreA": "Yann ", "apellidoA": "Destal",            "image":"/assets/img/yann-destal.jpg"},
+        {"idA": 9, "nombreA": "Romain", "apellidoA": "Tranchart",        "image":"/assets/img/romain-tranchart.jpg"},
+        {"idA": 10, "nombreA": "Mehdi ", "apellidoA": "Fravéris-Essadi", "image":"/assets/img/Mehdi.jpg"}
+        
+
+    ],
+    "profesor":    
+    [
+        {"idP": 1, "nombreP": "Matias ", "apellidoP": "Río", "idAS": "1"},
+        {"idP": 2, "nombreP": "Amalia ", "apellidoP": "Fortune ", "idAS": "2"},
+        {"idP": 3, "nombreP": "Dewalt", "apellidoP": "Jhonson", "idAS": "3"},
+        {"idP": 4, "nombreP": "Thomas", "apellidoP": "Bangalter ", "idAS": "4"},
+        {"idP": 5, "nombreP": "Guy-Manuel", "apellidoP": "Cristo", "idAS": "5"}
+    ],
+    "asignatura":
+    [
+        {"idAS": 1, "nombreAsignatura": "programacion", "idP": 1 }, 
+        {"idAS": 2, "nombreAsignatura": "base de datos", "idP": 2 }, 
+        {"idAS": 3, "nombreAsignatura": "conexiones", "idP": 3 }, 
+        {"idAS": 4, "nombreAsignatura": "ingenieria", "idP": 4 }, 
+        {"idAS": 5, "nombreAsignatura": "arquitectura", "idP": 5 }
+ 
+    ]
+}

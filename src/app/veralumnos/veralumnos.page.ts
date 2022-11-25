@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import { Subscriber } from 'rxjs';
+import { map } from 'rxjs/operators'
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-veralumnos',
@@ -10,19 +13,24 @@ import { Subscriber } from 'rxjs';
 export class VeralumnosPage implements OnInit {
 
   token = localStorage.getItem("token");   
-  characters = []
-
-  constructor(
-    public http: HttpClient
-  ) { }
+  users :any= []
+  
+  constructor( public http: HttpClient, private router:Router ) { }
 
   ngOnInit() {
-    console.log("token: ", this.token)
-    this.http.get<any>('https://rickandmortyapi.com/api/character')
-    .subscribe(res => {
-      console.log(res);
-      this.characters = res.results;
-    })
+  this.getUsers().subscribe(res => {
+    console.log("Res",res)
+    this.users = res;
+  })
+  }
+
+  getUsers(){
+    return this.http
+    .get('assets/server/dlatos.json')
+    .pipe(
+      map((res:any)=>{
+      return res.alumnos;})
+      )
   }
 
 }
