@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./veralumnos/veralumnos.module').then( m => m.VeralumnosPageModule)
   },
   {
+    path: 'home/:id', 
+    loadChildren:() => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
     path: 'profile/:id',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },

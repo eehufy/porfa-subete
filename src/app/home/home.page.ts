@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { map } from 'rxjs/operators'
 
 import { LoadingController, ToastController } from '@ionic/angular';
+import {HttpClient} from '@angular/common/http'
 
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import jsQR from 'jsqr';
@@ -13,11 +15,8 @@ import jsQR from 'jsqr';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
-  qrCodeString='https://www.youtube.com/watch?v=dwDns8x3Jb4';
-
-
-
+  qrCodeString='programacion';
+  pro: any= []
   code: any;
   scanActive = false;
   scanResult = null;
@@ -28,8 +27,7 @@ export class HomePage implements OnInit {
   canvasContext: any;
   loading: HTMLIonLoadingElement;
 
-
-  constructor(private alertController: AlertController, private barcodeScanner: BarcodeScanner,
+  constructor(private http: HttpClient,private alertController: AlertController, private barcodeScanner: BarcodeScanner,
      private toastCtrl: ToastController, private loadingCtrl: LoadingController) {}
      ngAfterViewInit(){  
       this.videoElement = this.video.nativeElement;
@@ -37,26 +35,26 @@ export class HomePage implements OnInit {
       this.canvasContext = this.canvasElement.getContext('2d');
   }
 
-
-
-
-
-  async asistencia() {
-    const alert = await this.alertController.create({
-      header: 'Atencion',
-      subHeader: ' Mensaje importante ',
-      message: 'Se abrira la camara para leer el QR ',
-      buttons: ['entendido'],
-    });
-
-    await alert.present();
+  GetProfesores()
+  {
+    return this.http
+    .get('assets/server/dlatos.json')
+    .pipe(
+      map((res:any)=>{
+        return res.pro
+      })
+    )
   }
-
-
-
 
   ngOnInit() {
+    this.GetProfesores().subscribe(res => {
+      console.log("Res",res)
+      this.pro = res;
+    })
   }
+
+
+
   captar(){
     this.barcodeScanner.scan().then(barcodeData => {
       this.code = barcodeData.text;
@@ -65,7 +63,51 @@ export class HomePage implements OnInit {
          console.log('Error', err);
      });
   }
-  async starscan(){
+  async starscanP(){
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {facingMode: 'environment'}
+    });
+    this.videoElement.srcObject = stream;
+    this.videoElement.setAttribute('playsinline',true);
+    this.videoElement.play();
+    this.loading = await this.loadingCtrl.create({});
+    await this.loading.present();
+    requestAnimationFrame(this.scan.bind(this));
+  }
+  async starscanB(){
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {facingMode: 'environment'}
+    });
+    this.videoElement.srcObject = stream;
+    this.videoElement.setAttribute('playsinline',true);
+    this.videoElement.play();
+    this.loading = await this.loadingCtrl.create({});
+    await this.loading.present();
+    requestAnimationFrame(this.scan.bind(this));
+  }
+  async starscanC(){
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {facingMode: 'environment'}
+    });
+    this.videoElement.srcObject = stream;
+    this.videoElement.setAttribute('playsinline',true);
+    this.videoElement.play();
+    this.loading = await this.loadingCtrl.create({});
+    await this.loading.present();
+    requestAnimationFrame(this.scan.bind(this));
+  }
+  async starscanI(){
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {facingMode: 'environment'}
+    });
+    this.videoElement.srcObject = stream;
+    this.videoElement.setAttribute('playsinline',true);
+    this.videoElement.play();
+    this.loading = await this.loadingCtrl.create({});
+    await this.loading.present();
+    requestAnimationFrame(this.scan.bind(this));
+  }
+  async starscanA(){
     const stream = await navigator.mediaDevices.getUserMedia({
       video: {facingMode: 'environment'}
     });
