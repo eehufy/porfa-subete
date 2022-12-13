@@ -1,0 +1,34 @@
+{
+    "alumnos":
+    [
+        {"id":1,"contrasena":"1234" , "UsuarioA":"Bob-Sinclar" ,"nombreA": "Christophe", "apellidoA": "Le Friant" ,        "image":"/assets/img/Le-Friant.jpg"},
+        {"id":2,"contrasena":"1234" , "UsuarioA":"Falcon","nombreA": "Stéphane ",        "apellidoA": "Quême",             "image":"/assets/img/Stéphane-Quême.jpg"},
+        {"id":3,"contrasena":"1234" , "UsuarioA":"Stardust","nombreA": "Benjamin ",      "apellidoA": "Diamond",           "image":"/assets/img/Benjamin-Diamond.jpg"},
+        {"id":4,"contrasena":"1234" , "UsuarioA":"Romanthony","nombreA": "Anthony ",     "apellidoA": "Wayne",             "image":"/assets/img/Anthony.png"},
+        {"id":5,"contrasena":"1234" , "UsuarioA":"David-Guetta","nombreA": "Pierre ",    "apellidoA": "David " ,           "image":"/assets/img/Pierred-David.png"},
+        {"id":6,"contrasena":"1234" , "UsuarioA":"Majeure","nombreA": "Gaspard ",        "apellidoA": "Augê",              "image":"/assets/img/Gaspard-Augê.jpg"},
+        {"id":7,"contrasena":"1234" , "UsuarioA":"Xavier","nombreA": "Xavier ",          "apellidoA": "de Rosnay",         "image":"/assets/img/Xavier_de_Rosnay.jpg"},
+        {"id":8,"contrasena":"1234" , "UsuarioA":"Destagnol","nombreA": "Yann ",         "apellidoA": "Destal",            "image":"/assets/img/yann-destal.jpg"},
+        {"id":9,"contrasena":"1234" , "UsuarioA":"Modjo","nombreA": "Romain",            "apellidoA": "Tranchart",         "image":"/assets/img/romain-tranchart.jpg"},
+        {"id":10,"contrasena":"1234" ,"UsuarioA":"Dj-Mehdi","nombreA": "Mehdi ",         "apellidoA": "Fravéris-Essadi",   "image":"/assets/img/Mehdi.jpg"}
+        
+
+    ],
+    "profesor":    
+    [
+        {"idP": 1, "nombreusuarioP":"DeadMau5", "nombreP": "Joel  ", "apellidoP": "Zimmerman", "idAS": "1", "image":"/assets/img/Deadmau5.jpg"},
+        {"idP": 2, "nombreusuarioP":"Alesso","nombreP": "Alesasandro ", "apellidoP": "Lindblad ", "idAS": "2", "image":"Alessojpg.jpg"},
+        {"idP": 3, "nombreusuarioP":"Calvin Harris","nombreP": "Adam Richard", "apellidoP": "Wiles", "idAS": "3","image":"Calvin Harris.jpg"} ,
+        {"idP": 4, "nombreusuarioP":"Thomas Bangalter","nombreP": "Thomas", "apellidoP": "Bangalter ", "idAS": "4", "image":"Thomas Bangalter.png"},
+        {"idP": 5, "nombreusuarioP":"Guy-Manuel","nombreP": "Guy-Manuel", "apellidoP": "Cristo", "idAS": "5", "image":"Guy-Manuel.png"}
+    ],
+    "asignatura":
+    [
+        {"idAS": 1, "nombreAsignatura": "programacion", "idP": 1 }, 
+        {"idAS": 2, "nombreAsignatura": "base de datos", "idP": 2 }, 
+        {"idAS": 3, "nombreAsignatura": "conexiones", "idP": 3 }, 
+        {"idAS": 4, "nombreAsignatura": "ingenieria", "idP": 4 }, 
+        {"idAS": 5, "nombreAsignatura": "arquitectura", "idP": 5 }
+ 
+    ]
+}

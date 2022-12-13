@@ -12,7 +12,7 @@ export class LoginPage implements OnInit {
   mensaje : String;
   lista = []
   nombre: String;
-
+  
   constructor(
     private router: Router,
     private Capi : CapiService,

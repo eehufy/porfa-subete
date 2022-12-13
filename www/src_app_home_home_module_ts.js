@@ -56,6 +56,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _home_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.page */ 2267);
 /* harmony import */ var _home_routing_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home-routing.module */ 2003);
+/* harmony import */ var angularx_qrcode__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angularx-qrcode */ 9180);
+
 
 
 
@@ -71,7 +73,8 @@ HomePageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
             _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule,
             _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule,
             _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule,
-            _home_routing_module__WEBPACK_IMPORTED_MODULE_1__.HomePageRoutingModule
+            _home_routing_module__WEBPACK_IMPORTED_MODULE_1__.HomePageRoutingModule,
+            angularx_qrcode__WEBPACK_IMPORTED_MODULE_7__.QRCodeModule
         ],
         declarations: [_home_page__WEBPACK_IMPORTED_MODULE_0__.HomePage]
     })
@@ -92,12 +95,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "HomePage": () => (/* binding */ HomePage)
 /* harmony export */ });
-/* harmony import */ var C_Users_Jose_Desktop_prueba_prograMovil_main_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 4929);
+/* harmony import */ var C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 4929);
 /* harmony import */ var _home_page_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.page.html?ngResource */ 3853);
 /* harmony import */ var _home_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.page.scss?ngResource */ 1020);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ 3819);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ 3819);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 6942);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _awesome_cordova_plugins_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @awesome-cordova-plugins/barcode-scanner/ngx */ 2703);
 /* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! jsqr */ 1038);
 /* harmony import */ var jsqr__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(jsqr__WEBPACK_IMPORTED_MODULE_4__);
@@ -110,12 +115,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 let HomePage = class HomePage {
-  constructor(alertController, barcodeScanner, toastCtrl, loadingCtrl) {
+  constructor(http, alertController, barcodeScanner, toastCtrl, loadingCtrl) {
+    this.http = http;
     this.alertController = alertController;
     this.barcodeScanner = barcodeScanner;
     this.toastCtrl = toastCtrl;
     this.loadingCtrl = loadingCtrl;
+    this.qrCodeString = 'programacion';
+    this.pro = [];
     this.scanActive = false;
     this.scanResult = null;
   }
@@ -126,21 +136,18 @@ let HomePage = class HomePage {
     this.canvasContext = this.canvasElement.getContext('2d');
   }
 
-  asistencia() {
-    var _this = this;
-
-    return (0,C_Users_Jose_Desktop_prueba_prograMovil_main_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const alert = yield _this.alertController.create({
-        header: 'Atencion',
-        subHeader: ' Mensaje importante ',
-        message: 'Se abrira la camara para leer el QR ',
-        buttons: ['entendido']
-      });
-      yield alert.present();
-    })();
+  GetProfesores() {
+    return this.http.get('assets/server/dlatos.json').pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(res => {
+      return res.pro;
+    }));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.GetProfesores().subscribe(res => {
+      console.log("Res", res);
+      this.pro = res;
+    });
+  }
 
   captar() {
     this.barcodeScanner.scan().then(barcodeData => {
@@ -151,10 +158,31 @@ let HomePage = class HomePage {
     });
   }
 
-  starscan() {
+  starscanP() {
+    var _this = this;
+
+    return (0,C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const stream = yield navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: 'environment'
+        }
+      });
+      _this.videoElement.srcObject = stream;
+
+      _this.videoElement.setAttribute('playsinline', true);
+
+      _this.videoElement.play();
+
+      _this.loading = yield _this.loadingCtrl.create({});
+      yield _this.loading.present();
+      requestAnimationFrame(_this.scan.bind(_this));
+    })();
+  }
+
+  starscanB() {
     var _this2 = this;
 
-    return (0,C_Users_Jose_Desktop_prueba_prograMovil_main_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       const stream = yield navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'environment'
@@ -172,25 +200,88 @@ let HomePage = class HomePage {
     })();
   }
 
-  scan() {
+  starscanC() {
     var _this3 = this;
 
-    return (0,C_Users_Jose_Desktop_prueba_prograMovil_main_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+    return (0,C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const stream = yield navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: 'environment'
+        }
+      });
+      _this3.videoElement.srcObject = stream;
+
+      _this3.videoElement.setAttribute('playsinline', true);
+
+      _this3.videoElement.play();
+
+      _this3.loading = yield _this3.loadingCtrl.create({});
+      yield _this3.loading.present();
+      requestAnimationFrame(_this3.scan.bind(_this3));
+    })();
+  }
+
+  starscanI() {
+    var _this4 = this;
+
+    return (0,C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const stream = yield navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: 'environment'
+        }
+      });
+      _this4.videoElement.srcObject = stream;
+
+      _this4.videoElement.setAttribute('playsinline', true);
+
+      _this4.videoElement.play();
+
+      _this4.loading = yield _this4.loadingCtrl.create({});
+      yield _this4.loading.present();
+      requestAnimationFrame(_this4.scan.bind(_this4));
+    })();
+  }
+
+  starscanA() {
+    var _this5 = this;
+
+    return (0,C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const stream = yield navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: 'environment'
+        }
+      });
+      _this5.videoElement.srcObject = stream;
+
+      _this5.videoElement.setAttribute('playsinline', true);
+
+      _this5.videoElement.play();
+
+      _this5.loading = yield _this5.loadingCtrl.create({});
+      yield _this5.loading.present();
+      requestAnimationFrame(_this5.scan.bind(_this5));
+    })();
+  }
+
+  scan() {
+    var _this6 = this;
+
+    return (0,C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
       console.log('SCAN');
 
-      if (_this3.videoElement.readyState === _this3.videoElement.HAVE_ENOUGH_DATA) {
-        if (_this3.loading) {
-          yield _this3.loading.dismiss();
-          _this3.loading = null;
-          _this3.scanActive = true;
+      if (_this6.videoElement.readyState === _this6.videoElement.HAVE_ENOUGH_DATA) {
+        if (_this6.loading) {
+          yield _this6.loading.dismiss();
+          _this6.loading = null;
+          _this6.scanActive = true;
         }
 
-        _this3.canvasElement.height = _this3.videoElement.videoHeight;
-        _this3.canvasElement.width = _this3.videoElement.videoWidth;
+        _this6.canvasElement.height = _this6.videoElement.videoHeight;
+        _this6.canvasElement.width = _this6.videoElement.videoWidth;
 
-        _this3.canvasContext.drawImage(_this3.videoElement, 0, 0, _this3.canvasElement.width, _this3.canvasElement.height);
+        _this6.canvasContext.drawImage(_this6.videoElement, 0, 0, _this6.canvasElement.width, _this6.canvasElement.height);
 
-        const imageData = _this3.canvasContext.getImageData(0, 0, _this3.canvasElement.width, _this3.canvasElement.height);
+        const imageData = _this6.canvasContext.getImageData(0, 0, _this6.canvasElement.width, _this6.canvasElement.height);
 
         const code = jsqr__WEBPACK_IMPORTED_MODULE_4___default()(imageData.data, imageData.width, imageData.height, {
           inversionAttempts: 'dontInvert'
@@ -198,17 +289,17 @@ let HomePage = class HomePage {
         console.log('code: ', code);
 
         if (code) {
-          _this3.scanActive = false;
-          _this3.scanResult = code.data;
+          _this6.scanActive = false;
+          _this6.scanResult = code.data;
 
-          _this3.showQrToast();
+          _this6.showQrToast();
         } else {
-          if (_this3.scanActive) {
-            requestAnimationFrame(_this3.scan.bind(_this3));
+          if (_this6.scanActive) {
+            requestAnimationFrame(_this6.scan.bind(_this6));
           }
         }
       } else {
-        requestAnimationFrame(_this3.scan.bind(_this3));
+        requestAnimationFrame(_this6.scan.bind(_this6));
       }
     })();
   }
@@ -222,16 +313,16 @@ let HomePage = class HomePage {
   }
 
   showQrToast() {
-    var _this4 = this;
+    var _this7 = this;
 
-    return (0,C_Users_Jose_Desktop_prueba_prograMovil_main_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
-      const toast = yield _this4.toastCtrl.create({
-        message: `Open ${_this4.scanResult}?`,
+    return (0,C_Users_Jose_Desktop_Github_wea_porfa_subete_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const toast = yield _this7.toastCtrl.create({
+        message: `Open ${_this7.scanResult}?`,
         position: 'top',
         buttons: [{
           text: 'Open',
           handler: () => {
-            window.open(_this4.scanResult, '_system', 'location=yes');
+            window.open(_this7.scanResult, '_system', 'location=yes');
           }
         }]
       });
@@ -242,30 +333,32 @@ let HomePage = class HomePage {
 };
 
 HomePage.ctorParameters = () => [{
-  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.AlertController
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__.HttpClient
+}, {
+  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.AlertController
 }, {
   type: _awesome_cordova_plugins_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_3__.BarcodeScanner
 }, {
-  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.ToastController
+  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.ToastController
 }, {
-  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__.LoadingController
+  type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__.LoadingController
 }];
 
 HomePage.propDecorators = {
   video: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_6__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.ViewChild,
     args: ['video', {
       static: false
     }]
   }],
   canvas: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_6__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.ViewChild,
     args: ['canvas', {
       static: false
     }]
   }]
 };
-HomePage = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
+HomePage = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
   selector: 'app-home',
   template: _home_page_html_ngResource__WEBPACK_IMPORTED_MODULE_1__,
   styles: [_home_page_scss_ngResource__WEBPACK_IMPORTED_MODULE_2__]
@@ -11444,7 +11537,7 @@ module.exports = "#container {\n  text-align: center;\n  position: absolute;\n  
 /***/ ((module) => {
 
 "use strict";
-module.exports = "<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"medium\">\n    <ion-title>\n      home\n    </ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button [routerLink]=\"['/login']\" color=\"secondary\" >Login\n        <ion-icon slot=\"icon-only\" name=\"people-outline\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n\n  \n\n<ion-content [fullscreen]=\"true\">\n\n<img src=\"assets/Duoc.jpg\" alt=\"\">\n\n</ion-content>\n\n\n\n\n\n<ion-content class=\"ion-padding\">\n  <ion-button id=\"open-modal\" expand=\"block\">Ver Clases</ion-button>\n\n  <ion-modal #modal trigger=\"open-modal\">\n    <ng-template>\n      <ion-content>\n        <ion-toolbar>\n          <ion-title>Clases</ion-title>\n          <ion-buttons slot=\"end\">\n            <ion-button color=\"dark\" (click)=\"modal.dismiss()\">Close</ion-button>\n          </ion-buttons>\n        </ion-toolbar>\n        <ion-list>\n          <ion-item>\n            <ion-label>\n              <h2>Clase 1 </h2>\n              <p>Profesor Clase 1 </p>\n              <ion-button (click)=\"asistencia()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n          <ion-item>\n\n            <ion-label>\n              <h2>Clase 2 </h2>\n              <p>Profesor Clase 2 </p>\n              <ion-button (click)=\"asistencia()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n          <ion-item>\n\n            <ion-label>\n              <h2>Clase 3 </h2>\n              <p>Profesor Clase 3 </p>\n              <ion-button (click)=\"asistencia()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n          <ion-item>\n\n            <ion-label>\n              <h2>Clase 4</h2>\n              <p>Profesor Clase 4</p>\n              <ion-button (click)=\"asistencia()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </ng-template>\n  </ion-modal>\n    </ion-content>\n\n\n<ion-content class=\"ion-padding\">\n  <ion-button [routerLink]=\"['/veralumnos']\" id=\"open-modal\" expand=\"block\">Ver Alumnos</ion-button>\n</ion-content>\n  \n\n";
+module.exports = "<ion-header [translucent]=\"true\">\n  <ion-toolbar color=\"medium\">\n    <ion-title>\n      home\n    </ion-title>\n    \n    <ion-buttons slot=\"end\">\n      <ion-button [routerLink]=\"['/login']\" color=\"secondary\" >Login\n        <ion-icon slot=\"icon-only\" name=\"people-outline\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n\n  \n\n<ion-content [fullscreen]=\"true\">\n\n<img src=\"assets/Duoc.jpg\" alt=\"\">\n\n\n\n\n\n\n\n\n  <ion-button id=\"open-modal\" expand=\"block\">Ver Clases</ion-button>\n\n  <ion-modal #modal trigger=\"open-modal\">\n    <ng-template>\n      <ion-content>\n        <ion-toolbar>\n          <ion-title>Clases</ion-title>\n          <ion-buttons slot=\"end\">\n            <ion-button color=\"dark\" (click)=\"modal.dismiss()\">Close</ion-button>\n          </ion-buttons>\n        </ion-toolbar>\n        <ion-list>\n          <ion-item>\n            <ion-label>\n              <h2> Programacion </h2>\n              <p>Joel Zimmerman </p>\n              <ion-button (click)=\"starscanP()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n          <ion-item>\n\n            <ion-label>\n              <h2> Base de Datos </h2>\n              <p> Alessandro Lindblad </p>\n              <ion-button (click)=\"starscanB()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n          <ion-item>\n\n            <ion-label>\n              <h2> Conexiones </h2>\n              <p> Adam Richard Wiles </p>\n              <ion-button (click)=\"starscanC()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n          <ion-item>\n\n            <ion-label>\n              <h2> Ingenieria </h2>\n              <p> Thomas Bangalter </p>\n              <ion-button (click)=\"starscanI()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n\n          <ion-item>\n\n            <ion-label>\n              <h2> Arquitectura </h2>\n              <p> Guy-Manuel Cristo </p>\n              <ion-button (click)=\"starscanA()\" >Marcar asistencia\n              </ion-button>\n              <ion-icon name=\"create-outline\"></ion-icon>\n            </ion-label>\n          </ion-item>\n        </ion-list>\n      </ion-content>\n    </ng-template>\n\n\n\n    \n  </ion-modal>\n  <ion-button [routerLink]=\"['/veralumnos']\" id=\"open-modal\" expand=\"block\">Ver Alumnos</ion-button>\n  \n<ion-content>\n  <ion-card>\n    <ion-card-header>\n      <ion-card-title>Generar QR</ion-card-title>\n       <ion-card-content>\n        <qrcode [qrdata]=\"qrCodeString\" [width]=\"160\" [errorCorrectionLevel]=\"M\" ></qrcode>\n       </ion-card-content>\n    </ion-card-header>\n  \n    <ion-button fill=\"clear\">Action 1</ion-button>\n  \n\n\n  </ion-card>\n</ion-content>\n\n\n\n<!--Seccion del lector QR-->\n<ion-button expand=\"full\" (click)=\"reset()\" color=\"warning\" *ngIf=\"scanResult\">\n  <ion-icon slot=\"start\" name=\"refresh\"></ion-icon>\n  Resetear\n </ion-button>\n<video #video [hidden]=\"!scanActive\" width=\"100%\"></video>\n<canvas #canvas hidden></canvas>\n<ion-button expand=\"full\" (click)=\"stopscan()\" color=\"warning\" *ngIf=\"scanActive\">\n  <ion-icon slot=\"start\" name=\"close\"></ion-icon>\n  Parar Camara\n </ion-button>\n <ion-card *ngIf=\"scanResult\">\n  <ion-card-header>\n    <ion-card-title>Codigo QR</ion-card-title>\n  </ion-card-header>\n  <ion-card-content>\n    {{ scanResult }}\n  </ion-card-content>\n </ion-card>\n\n\n";
 
 /***/ })
 

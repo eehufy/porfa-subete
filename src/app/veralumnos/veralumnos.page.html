@@ -12,7 +12,7 @@
     <ion-row>
       <ion-col sizeMd="4" offsetMd="4">
         <ion-list>
-          <ion-item *ngFor="let user of users" [routerLink]="['/profile/' + user.id]">
+          <ion-item *ngFor="let user of users" >
             <ion-avatar slot="start" >
               <img src="{{user.image}}" alt="">
             </ion-avatar>
